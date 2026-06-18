@@ -284,14 +284,63 @@
 
   if (!contentEl || !imgEl || !btns.length) { return; }
 
-  var stories = [];
+  /* Logo asset base — update here if the upload path ever changes */
+  var LOGO_BASE = 'https://dev.peopleshr.com/wp-content/uploads/2026/04/';
+  var BRANDIX_LOGO = 'https://upload.wikimedia.org/wikipedia/commons/5/5d/Brandix_Apparel_Limited_Logo.png';
 
-  function resolveUrl(template, constants) {
-    if (!template) { return ''; }
-    return template
-      .replace('{{logoBaseUrl}}', constants.logoBaseUrl)
-      .replace('{{brandixLogoUrl}}', constants.brandixLogoUrl);
-  }
+  /* Featured story content — edit/add/remove entries here.
+     Each entry needs a matching logo button in #sf2-logos (index.html)
+     with the same data-idx as its position in this array. */
+  var stories = [
+    {
+      logo:      BRANDIX_LOGO,
+      logoAlt:   'Brandix',
+      company:   'Brandix Group',
+      headline:  'How Brandix unified HR for 50,000+ employees across 14 locations',
+      challenge: 'Brandix was managing payroll, attendance, and workforce data independently across 14 manufacturing sites. With no unified view of the workforce, month-end reconciliation consumed days and errors were inevitable.',
+      solution:  'PeoplesHR unified all 14 locations onto a single platform, giving HR complete visibility in real time. Payroll now closes in a fraction of the time with zero manual reconciliation between sites.',
+      modules:   ['HR', 'Pay', 'Time'],
+      img:       'https://img.magnific.com/free-photo/factory-workshop-interior-machines-glass-production-background_645730-396.jpg?semt=ais_hybrid&w=740&q=80',
+      tint:      '#1d4ed8',
+      href:      '#'
+    },
+    {
+      logo:      '',
+      logoAlt:   'SMSGT',
+      company:   'SMS Global Technologies',
+      headline:  'How SMSGT cut their monthly HR close from five days to one',
+      challenge: 'Three separate business units, three disconnected HR systems. SMSGT had no single source of truth for headcount, leave, or payroll and every monthly close required days of manual consolidation across divisions.',
+      solution:  'PeoplesHR brought all three business units onto one platform. Reporting that previously took five days now completes in one, and every division works from the same live data.',
+      modules:   ['HR', 'Talent'],
+      img:       'https://shoppable.ph/wp-content/uploads/2023/12/business-philippines-limitations-1024x684.jpg',
+      tint:      '#0f766e',
+      href:      '#'
+    },
+    {
+      logo:      LOGO_BASE + 'peoplesbank.webp',
+      logoAlt:   'Peoples Bank',
+      company:   'Peoples Bank',
+      headline:  'How Peoples Bank automated compliance and transformed payroll reporting',
+      challenge: 'In a highly regulated sector, the Peoples Bank HR team was spending two weeks every quarter manually compiling compliance reports. Payroll errors carried serious regulatory risk and consumed significant audit preparation time.',
+      solution:  'PeoplesHR automated the entire compliance workflow. Audit-ready reports are now generated at the push of a button, and payroll runs with built-in validation that eliminates manual errors before they happen.',
+      modules:   ['Pay', 'Insight'],
+      img:       'https://www.bria.com.ph/wp-content/uploads/2022/05/Central-Business-Districts-in-the-Philippines.png',
+      tint:      '#b91c1c',
+      href:      '#'
+    },
+    {
+      logo:      LOGO_BASE + 'pyramidwilmar.webp',
+      logoAlt:   'Pyramid Wilmar',
+      company:   'Pyramid Wilmar',
+      headline:  'How Pyramid Wilmar eliminated payroll reconciliation across a distributed workforce',
+      challenge: 'With a large hourly workforce spread across multiple sites, Pyramid Wilmar was manually reconciling attendance data with payroll every cycle. The process was slow, error-prone, and took days longer than it should.',
+      solution:  'PeoplesHR connected time and attendance directly to payroll. Attendance data flows automatically into each pay run, eliminating reconciliation entirely and cutting the payroll cycle by several days.',
+      modules:   ['HR', 'Time'],
+      img:       'https://www.worldbank.org/content/dam/Worldbank/Feature%20Story/Africa/Tanzania/ug-empowering-ugandas-youth-to-be-job-creators-780x439.jpg',
+      tint:      '#92400e',
+      href:      '#'
+    }
+  ];
 
   function buildContent(s) {
     var logoHtml = s.logo
@@ -341,23 +390,9 @@
     }, 220);
   }
 
-  function init(data) {
-    var constants = data.constants || {};
-    stories = (data.featuredStories || []).map(function (s) {
-      return Object.assign({}, s, { logo: resolveUrl(s.logo, constants) });
-    });
+  btns.forEach(function (btn, i) {
+    btn.addEventListener('click', function () { switchTo(i); });
+  });
 
-    btns.forEach(function (btn, i) {
-      btn.addEventListener('click', function () { switchTo(i); });
-    });
-
-    if (stories.length) { switchTo(0); }
-  }
-
-  fetch('data.json')
-    .then(function (res) { return res.json(); })
-    .then(init)
-    .catch(function (err) {
-      console.error('Failed to load data.json for featured case studies:', err);
-    });
+  switchTo(0);
 }());
