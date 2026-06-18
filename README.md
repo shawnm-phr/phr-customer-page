@@ -7,8 +7,8 @@ A standalone build of the Customers page (`peopleshr.com/customers`), split into
 ```
 customers-page/
 ├── index.html          Page markup
-├── customer-style.css  All page styles (base tokens + component CSS)
-├── customer-app.js     All page behavior (carousels, filters, modal, switcher)
+├── style.css           All page styles (base tokens + component CSS)
+├── script.js           All page behavior (carousels, filters, modal, switcher)
 └── README.md           This file
 ```
 
@@ -26,14 +26,14 @@ the bottom/top respectively. Sections in order: hero, video testimonials,
 logo marquee, featured case studies, story library, CTA strip, plus the
 shared video modal markup.
 
-**customer-style.css**
+**style.css**
 Everything from the page's design system tokens (colors, type, spacing)
 through every component's styles. On the live WordPress site this content
 is appended to `phrhome.css` as a delta block — the `<!-- ... -->` comment
 at the top of `index.html` shows where `phrhome.css` would be linked
 instead in production.
 
-**customer-app.js**
+**script.js**
 Six self-contained IIFEs, each independent and safe to remove or reorder:
 
 1. Video testimonial carousel (prev/next + responsive item count)
@@ -53,7 +53,7 @@ Six self-contained IIFEs, each independent and safe to remove or reorder:
 On the live WordPress site this is appended to `phrhome.js` as a delta
 block, same pattern as the CSS.
 
-**To edit a story:** open `customer-app.js`, find the `stories` array
+**To edit a story:** open `script.js`, find the `stories` array
 inside section 6, and edit the relevant object directly — `headline`,
 `challenge`, `solution`, `modules`, `img`, and `tint` are all plain
 strings/arrays, no templating or build step involved.
@@ -79,7 +79,7 @@ real assets/copy:
 
 - This page is designed to be embedded inside the WordPress theme, so the
   navbar/footer markup is intentionally not included here.
-- `customer-style.css` and `customer-app.js` get appended to the shared
+- `style.css` and `script.js` get appended to the shared
   `phrhome.css` / `phrhome.js` files at build time, marked with comments
   (e.g. `/* customers — new classes */`), rather than replacing them.
 - Don't place HTML comments inside `<style>` blocks when merging — it
