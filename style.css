@@ -6978,7 +6978,7 @@ button.btn-primary {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: var(--blue);
+    background: #16a34a;
     color: #fff;
     font-size: 14px;
     font-weight: 600;
@@ -6990,7 +6990,7 @@ button.btn-primary {
     transition: background .2s, transform .15s;
     font-family: inherit;
   }
-  .cs-btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); }
+  .cs-btn-primary:hover { background: #15803d; transform: translateY(-1px); }
   .cs-btn-primary svg { width: 16px; height: 16px; flex-shrink: 0; }
 
   .cs-btn-ghost {
